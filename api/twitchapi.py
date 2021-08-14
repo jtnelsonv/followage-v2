@@ -1,4 +1,4 @@
-import json
+import json, os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from twitchAPI.twitch import Twitch
@@ -11,10 +11,12 @@ class User(BaseModel):
 app = FastAPI()
 
 origins = [
-    "http://localhost",
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
+    "https://followage.com",
+    "https://www.followage.com",
+    "https://api.followage.com",
+    "followage.com",
+    "www.followage.com",
+    "api.followage.com"
 ]
 
 app.add_middleware(
@@ -33,7 +35,7 @@ async def main(user: User):
 
 # create instance of twitch API
 def twitch_api():
-    twitch = Twitch('ax234vjbiqvlri5sphorr2pzugi3el', 'do6eeh3hg7jmzas4acv0mhlkq3cyf6')
+    twitch = Twitch(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'])
     twitch.authenticate_app([])
     return twitch
 
@@ -121,6 +123,3 @@ def check_returned_data(response_object):
         return response_object
     else:
         raise ValueError('Twitch response object is empty')
-
-
-# run(app, host='localhost', port=8080)

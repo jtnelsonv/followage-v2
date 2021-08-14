@@ -17,43 +17,39 @@ class ChannelCard extends Component {
 
   render() {
     const channel = this.props.channel;
-    const offlineImage = channel.offline_image_url !== '' ? channel.offline_image_url : 'https://picsum.photos/id/96/240/135';
     const profileImage = channel.profile_image_url !== '' ? channel.profile_image_url : 'https://picsum.photos/id/680/160/160';
     return (
       <React.Fragment>
         <div className="profile shadow">
-          <div className="profile__header">
+          <div className="profile-header">
+            <div className="profile-background-gradient"></div>
             <img
-              className="profile__background"
-              src={offlineImage}
-              alt="Offline background" />
-            <img
-              className="profile__picture"
+              className="profile-image"
               src={profileImage}
               alt="Profile" />
           </div>
-          <div className="profile__content">
-            <div className="profile__bio">
-              <h3 className="profile__name">{channel.display_name}</h3>
-              <p className="profile__info">
+          <div className="profile-content">
+            <div className="profile-bio">
+              <h3 className="profile-name">{channel.display_name}</h3>
+              <p className="profile-info">
                 Following for {this.calculateFollowTime(channel.followed_at)}
               </p>
             </div>
-            <div className="profile__twitter">
-              <div className="profile__twitter__stats profile__twitter__stats--followers">
-                <span className="profile__twitter__stats__count">{parseInt(channel.view_count).toLocaleString(undefined)}</span>
-                <span className="profile__twitter__stats__label">
+            <div className="profile-channel">
+              <div className="profile-channel-stats">
+                <span className="profile-channel-stats-data">{parseInt(channel.view_count).toLocaleString(undefined)}</span>
+                <span>
                   View Count
                 </span>
               </div>
-              <div className="profile__twitter__stats profile__twitter__stats--following">
-                <span className="profile__twitter__stats__count">{moment(channel.followed_at).format("MMM Do YYYY")}</span>
-                <span className="profile__twitter__stats__label">
+              <div className="profile-channel-stats">
+                <span className="profile-channel-stats-data">{moment(channel.followed_at).format("MMM Do YYYY")}</span>
+                <span>
                   Followed
                 </span>
               </div>
-              <div className="profile__twitter__follow">
-                <a className="button profile__twitter__follow__button" href={'https://twitch.tv/' + channel.login} target="_blank" rel="noreferrer">Visit</a>
+              <div className="profile-channel-visit">
+                <a className="button profile-channel-visit-button" href={'https://twitch.tv/' + channel.login} target="_blank" rel="noreferrer">Visit</a>
               </div>
             </div>
           </div>

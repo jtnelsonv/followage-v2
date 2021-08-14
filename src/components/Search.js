@@ -9,6 +9,7 @@ export class Search extends Component {
 
     onChange = (e) => this.setState({ user: e.target.value });
 
+    // submit form
     onSubmit = (e) => {
         try {
             e.preventDefault();
@@ -25,12 +26,24 @@ export class Search extends Component {
         }
     }
 
+    // submit form when enter key is pressed
+    onEnter = (e) => {
+        try {
+            // key code for enter is 13
+            if (e.keyCode === 13) {
+                this.onSubmit(e);
+            }
+        } catch (error) {
+            console.error('onEnter function error --> ' + error);
+        }
+    }
+
     render() {
         return (
-            <div id="header" className="hero-header" style={{paddingTop: "2.5em"}}>
+        <div id="header" className="fixed-header" style={{backgroundColor: "#293241", paddingTop: "2.5em"}}>
             <div className="p-5" style={{backgroundColor: "#EE6C4D"}}>
                 <div className="container">
-                <form id="search" onSubmit={this.onSubmit}>
+                <form id="search" onSubmit={this.onSubmit} onKeyDown={this.onEnter}>
                     <div className="field is-grouped is-grouped-centered">
                         <div className="control is-expanded">
                             <input className="input is-medium" type="text" placeholder={this.state.error === '' ? 'Enter your Twitch username...'  : this.state.error} value={this.state.user} onChange={this.onChange} />
